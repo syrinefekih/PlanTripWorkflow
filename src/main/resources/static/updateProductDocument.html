@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Credit Store</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container my-5">
+  <h1 class="text-center">Reclamation de demandes de credit</h1>
+    <a href="/" class="btn btn-danger text-right">Retour</a>
+  <hr>
+  <h2>Demande Credit N° :</h2>
+
+  <form action="#" th:action="@{/api/complete-task}" th:object="${demandeCredit}" method="POST">
+
+    <!-- Add hidden form field to handle update -->
+    <input type="hidden" th:field="*{idDemande}" placeholder="idDemande" class="form-control mb-4 col-4">
+
+    <input type="text" th:field="*{typeCredit}" placeholder="typeCredit" class="form-control mb-4 col-4" >
+
+    <input type="text" th:field="*{statut}" placeholder="statut" class="form-control mb-4 col-4">
+
+    <input type="text" th:field="*{montant}"placeholder="montant" class="form-control mb-4 col-4">
+
+    <label>Traitement:</label>
+    <select id="idEtape" name="idEtape">
+      <option value="15">Retour réclamation crédit pour besoin d'information</option>
+      <option value="16">Back Office : Traitement de réclamation crédit</option>
+      <option value="57">CRC : Traitement de réclamation crédit</option>
+      <option value="17"> Clotûre de réclamation crédit</option>
+      <option value="18"> Rejet de réclamation crédit</option>
+    </select>
+<br />
+    <button type="submit" class="btn btn-info col-2"> Update Status</button>
+  </form>
+</div>
+</body>
+
+</html>
