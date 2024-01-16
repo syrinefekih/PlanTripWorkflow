@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/travelplan")
 public class CamundaController {
     protected static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CamundaController.class);
@@ -55,24 +55,7 @@ public class CamundaController {
             return "Task not found";
         }
     }
-    //Accomplish USER TASK traitement back office
-    @PostMapping("/complete-task/task2/{idUser}")
-    public String completeOntologyTask(@PathVariable String idUser) {
-        Task task = taskService.createTaskQuery()
-                .processInstanceBusinessKey(idUser)
-                .taskDefinitionKey("ontologyEtape")
-                .singleResult();
-        LOGGER.info("traitement etape " + task.getName());
-
-        if (task != null) {
-            taskService.complete(task.getId());
-            return "Task completed";
-        } else {
-            return "Task not found";
-        }
-    }
-
-    //Accomplish USER TASK Modification de reclamation
+//CHOICE OF COUNTRY AND DATES
     @PostMapping("/complete-task/task3/{idUser}")
     public String completeChoiceTask(@PathVariable String idUser) {
         Task task = taskService.createTaskQuery()
@@ -88,13 +71,12 @@ public class CamundaController {
             return "Task not found";
         }
     }
-
-    //Accomplish Hotel selection
+    //CHOICE OF FLIGHT
     @PostMapping("/complete-task/task4/{idUser}")
-    public String completeHotelTask(@PathVariable String idUser) {
+    public String completeFlightChoice(@PathVariable String idUser) {
         Task task = taskService.createTaskQuery()
                 .processInstanceBusinessKey(idUser)
-                .taskDefinitionKey("hotel")
+                .taskDefinitionKey("choiceF")
                 .singleResult();
         LOGGER.info("traitement etape "+task.getName());
 
@@ -105,13 +87,12 @@ public class CamundaController {
             return "Task not found";
         }
     }
-
-    //Accomplish Hotel selection
+    //CHOICE OF Hotel
     @PostMapping("/complete-task/task5/{idUser}")
     public String completeActivityTask(@PathVariable String idUser) {
         Task task = taskService.createTaskQuery()
                 .processInstanceBusinessKey(idUser)
-                .taskDefinitionKey("activities")
+                .taskDefinitionKey("choiceH")
                 .singleResult();
         LOGGER.info("traitement etape "+task.getName());
 
@@ -123,24 +104,7 @@ public class CamundaController {
         }
     }
 
-    //Accomplish Hotel selection
-    @PostMapping("/complete-task/task6/{idUser}")
-    public String completeGenerateItinerary(@PathVariable String idUser) {
-        Task task = taskService.createTaskQuery()
-                .processInstanceBusinessKey(idUser)
-                .taskDefinitionKey("itinerary")
-                .singleResult();
-        LOGGER.info("traitement etape "+task.getName());
-
-        if (task != null) {
-            taskService.complete(task.getId());
-            return "Task completed";
-        } else {
-            return "Task not found";
-        }
-    }
-
-    //Accomplish Hotel selection
+    //Accomplish generated itinenary
     @PostMapping("/complete-task/task7/{idUser}/{confirmation}")
     public String completeUserConfirmation(@PathVariable String idUser,@PathVariable String confirmation) {
         Task task = taskService.createTaskQuery()
@@ -157,8 +121,6 @@ public class CamundaController {
         }
     }
 
-
-    //Accomplish Hotel selection
     @PostMapping("/complete-task/task8/{idUser}")
     public String completeCalculateCost(@PathVariable String idUser) {
         Task task = taskService.createTaskQuery()
